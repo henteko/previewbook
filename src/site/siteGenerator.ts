@@ -2,7 +2,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import type { Manifest } from "../catalog.js";
-import { APP_JS, PLACEHOLDER_CSS } from "./templates.js";
+import { siteAppJs, siteStyles } from "./templates.js";
 import { log } from "../logging.js";
 
 export interface SiteOptions {
@@ -42,29 +42,11 @@ export function renderIndexHtml(options: SiteOptions): string {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escapeHtml(options.title)}</title>
-<!-- PLACEHOLDER DESIGN: styling lives entirely in this <style> block. -->
-<style>${PLACEHOLDER_CSS}</style>
+<style>${siteStyles()}</style>
 </head>
 <body>
-<header>
-  <span class="brand" id="title">${escapeHtml(options.title)}</span>
-  <span class="badge" title="Temporary UI; final design pending">placeholder</span>
-  <span class="spacer"></span>
-  <input class="search" id="search" type="search" placeholder="Filter previews…" autocomplete="off">
-  <button id="theme" title="Toggle light/dark">◑ Theme</button>
-</header>
-<main>
-  <aside class="sidebar" id="tree"></aside>
-  <section class="canvas" id="canvas">
-    <div class="empty">Loading…</div>
-  </section>
-  <aside class="details" id="details">
-    <p class="sub">Select a preview to inspect.</p>
-  </aside>
-</main>
-<footer><span id="generated"></span></footer>
-<div class="lightbox" id="lightbox"><img id="lightbox-img" alt=""></div>
-${embed}<script>${APP_JS}</script>
+<div id="root"></div>
+${embed}<script>${siteAppJs()}</script>
 </body>
 </html>
 `;

@@ -56,5 +56,14 @@ test("includes inlined CSS and JS (zero external deps)", () => {
   const html = renderIndexHtml({ title: "Demo" });
   assert.ok(html.includes("<style>"));
   assert.ok(html.includes("__PREVIEWBOOK"));
-  assert.ok(!html.includes('src="'));
+  // No external resources: no remote URLs, no external <script src>/<link>.
+  assert.ok(!/<script[^>]+\bsrc=/.test(html));
+  assert.ok(!/<link\b/.test(html));
+  assert.ok(!html.includes("https://"));
+});
+
+test("renders the #root mount and inlines the SPA", () => {
+  const html = renderIndexHtml({ title: "Demo" });
+  assert.ok(html.includes('<div id="root"></div>'));
+  assert.ok(html.includes("Search components, stories"));
 });

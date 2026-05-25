@@ -38,6 +38,12 @@ export interface Story {
   file: string;
   index: number;
   targetType?: string;
+  /** Definition kind: `#Preview` macro or `PreviewProvider`. */
+  kind: "macro" | "provider";
+  /** 1-based start line of the definition in its source file. */
+  line: number;
+  /** 1-based end line of the definition in its source file. */
+  endLine: number;
 }
 
 /** One rendered preview, the input to {@link buildCatalog}. */
@@ -107,6 +113,9 @@ export function buildCatalog(
         source: cap.definition.source,
         file,
         index: cap.definition.index,
+        kind: cap.definition.kind,
+        line: cap.definition.startLine,
+        endLine: cap.definition.endLine,
       };
       if (cap.definition.targetType) story.targetType = cap.definition.targetType;
       stories.push(story);
