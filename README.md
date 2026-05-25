@@ -167,6 +167,39 @@ npm test            # ユニットテスト（node:test）
 npm run build       # dist/ へコンパイル（site アセットもコピー）
 ```
 
+## リリース
+
+npm（`@henteko/previewbook`）への公開手順です。`main` ブランチ・作業ツリーがクリーンな状態で行います。
+
+事前準備（初回のみ）:
+
+```bash
+npm login                 # npm にログイン（@henteko への publish 権限が必要）
+npm whoami                # ログイン確認
+```
+
+リリース:
+
+```bash
+# 1. 事前チェック
+npm run typecheck && npm test
+
+# 2. バージョンを上げる（package.json 更新 + コミット + タグ v0.1.1 を作成）
+npm version patch         # 修正: patch / 機能追加: minor / 破壊的変更: major
+
+# 3. コミットとタグを push
+git push origin main --follow-tags
+
+# 4. 公開（prepublishOnly でビルド、scoped public は publishConfig 済み）
+npm publish               # 2FA 環境では: npm publish --otp=<6桁コード>
+```
+
+- 公開物を事前確認するには `npm publish --dry-run`（同梱されるファイル一覧が出ます）。
+- GitHub のリリースノートも作る場合（任意、`gh` CLI）:
+  ```bash
+  gh release create v0.1.1 --generate-notes
+  ```
+
 ## 限界
 
 - MCP は静的レンダリングのため、Storybook の Controls（args を動かして即反映）は非対応。バリエーションは開発者が書いた `#Preview` をそのまま 1 Story として並べます。
