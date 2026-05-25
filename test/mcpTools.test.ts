@@ -34,13 +34,13 @@ function stubStructured(structured: Record<string, unknown>): MCPClient {
 
 test("XcodeListWindows: parses the real message format (paths with spaces)", async () => {
   const message =
-    "* tabIdentifier: windowtab1, workspacePath: /Users/henteko/dev/maycast-studio/Apps/MaycastStudio/Maycast Studio/Maycast Studio.xcodeproj\n";
+    "* tabIdentifier: windowtab1, workspacePath: /path/to/My App/My App.xcodeproj\n";
   const windows = await xcodeListWindows(stubClient(message));
   assert.equal(windows.length, 1);
   assert.equal(windows[0]!.tabIdentifier, "windowtab1");
   assert.equal(
     windows[0]!.projectPath,
-    "/Users/henteko/dev/maycast-studio/Apps/MaycastStudio/Maycast Studio/Maycast Studio.xcodeproj",
+    "/path/to/My App/My App.xcodeproj",
   );
 });
 
@@ -72,15 +72,15 @@ test("XcodeGrep: parses structured results array (real format)", async () => {
       matchCount: 124,
       pattern: "#Preview",
       results: [
-        "Maycast Studio/Maycast Studio/ContentView.swift",
-        "Maycast Studio/Maycast Studio/HomeView.swift",
+        "My App/My App/ContentView.swift",
+        "My App/My App/HomeView.swift",
       ],
       truncated: false,
     }),
     "#Preview",
   );
   assert.equal(matches.length, 2);
-  assert.equal(matches[0]!.path, "Maycast Studio/Maycast Studio/ContentView.swift");
+  assert.equal(matches[0]!.path, "My App/My App/ContentView.swift");
 });
 
 test("XcodeGrep: treats 'No matches found' sentinel as empty", async () => {

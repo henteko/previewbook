@@ -3,3 +3,4 @@ dist/
 examples/demo-site/
 *.log
 .DS_Store
+.thumbnail

@@ -5,13 +5,13 @@ import { dedupePaths } from "../src/snapshotService.js";
 
 test("dedupePaths collapses the same file listed under multiple roots", () => {
   const out = dedupePaths([
-    "Maycast Studio/Maycast Studio/ContentView.swift",
-    "MaycastStudio/Apps/MaycastStudio/Maycast Studio/Maycast Studio/ContentView.swift",
-    "Maycast Studio/Maycast Studio/HomeView.swift",
+    "My App/My App/ContentView.swift",
+    "MyApp/Apps/MyApp/My App/My App/ContentView.swift",
+    "My App/My App/HomeView.swift",
   ]);
   assert.deepEqual(out.sort(), [
-    "Maycast Studio/Maycast Studio/ContentView.swift",
-    "Maycast Studio/Maycast Studio/HomeView.swift",
+    "My App/My App/ContentView.swift",
+    "My App/My App/HomeView.swift",
   ]);
 });
 
