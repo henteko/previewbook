@@ -1,0 +1,39 @@
+{
+  "name": "previewbook",
+  "version": "0.1.0",
+  "description": "Browse SwiftUI previews as a hierarchical, searchable Storybook-like website. Renders #Preview definitions via the Xcode MCP server.",
+  "type": "module",
+  "bin": {
+    "previewbook": "dist/cli.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/cli.ts",
+    "start": "node dist/cli.js",
+    "test": "node --import tsx --test test/*.test.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "demo": "tsx scripts/generate-demo.ts"
+  },
+  "keywords": [
+    "swiftui",
+    "preview",
+    "storybook",
+    "xcode",
+    "mcp",
+    "snapshot"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}
