@@ -104,6 +104,7 @@ export class MCPClient {
   ): Promise<ToolCallResult> {
     log.debug(`tools/call ${name} ${JSON.stringify(args)}`);
     const raw = await this.request("tools/call", { name, arguments: args });
+    log.debug(`tools/call ${name} <- ${preview(raw)}`);
     return normalizeToolResult(raw);
   }
 
@@ -185,4 +186,15 @@ export function normalizeToolResult(raw: JSONValue): ToolCallResult {
   }
 
   return { text, structured, isError, raw };
+}
+
+/** Compact JSON preview for debug logging of raw tool results. */
+function preview(value: JSONValue, max = 4000): string {
+  let s: string;
+  try {
+    s = JSON.stringify(value);
+  } catch {
+    s = String(value);
+  }
+  return s.length > max ? s.slice(0, max) + `… (${s.length} chars)` : s;
 }
