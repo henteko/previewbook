@@ -42,6 +42,7 @@ export function renderIndexHtml(options: SiteOptions): string {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escapeHtml(options.title)}</title>
+<link rel="icon" href="${faviconDataUri()}">
 <style>${siteStyles()}</style>
 </head>
 <body>
@@ -50,6 +51,24 @@ ${embed}<script>${siteAppJs()}</script>
 </body>
 </html>
 `;
+}
+
+/**
+ * Favicon mirroring the topbar brand mark: a dark rounded tile with a white
+ * "P" and the accent dot. Inlined as a base64 SVG data URI so the site stays
+ * self-contained (no external file, works from file://).
+ */
+const FAVICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">\
+<rect x="2" y="2" width="28" height="28" rx="8" fill="#09090B"/>\
+<text x="15" y="22" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="18" font-weight="700">P</text>\
+<circle cx="24" cy="8" r="3.5" fill="#3b6fe0"/>\
+</svg>`;
+
+function faviconDataUri(): string {
+  return (
+    "data:image/svg+xml;base64," +
+    Buffer.from(FAVICON_SVG, "utf8").toString("base64")
+  );
 }
 
 /** JSON safe to embed in an inline <script> (neutralizes `</script>`). */

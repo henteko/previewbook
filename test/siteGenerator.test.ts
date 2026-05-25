@@ -56,10 +56,18 @@ test("includes inlined CSS and JS (zero external deps)", () => {
   const html = renderIndexHtml({ title: "Demo" });
   assert.ok(html.includes("<style>"));
   assert.ok(html.includes("__PREVIEWBOOK"));
-  // No external resources: no remote URLs, no external <script src>/<link>.
+  // No external resources: no remote URLs, no external <script src>.
   assert.ok(!/<script[^>]+\bsrc=/.test(html));
-  assert.ok(!/<link\b/.test(html));
   assert.ok(!html.includes("https://"));
+  // Any <link> must be an inline data: URI (e.g. the favicon), not external.
+  for (const m of html.matchAll(/<link\b[^>]*>/g)) {
+    assert.ok(m[0].includes('href="data:'), `external link found: ${m[0]}`);
+  }
+});
+
+test("embeds a data-URI favicon", () => {
+  const html = renderIndexHtml({ title: "Demo" });
+  assert.match(html, /<link rel="icon" href="data:image\/svg\+xml;base64,/);
 });
 
 test("renders the #root mount and inlines the SPA", () => {

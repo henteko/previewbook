@@ -173,7 +173,7 @@
         <header class="topbar">
           <div class="brand">
             <div class="brand-mark">P</div>
-            previewbook
+            Previewbook
             <div class="brand-meta">${esc(meta)}</div>
           </div>
           <div class="spacer"></div>
