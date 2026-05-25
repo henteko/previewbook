@@ -1,5 +1,5 @@
 {
-  "name": "previewbook",
+  "name": "@henteko/previewbook",
   "version": "0.1.0",
   "description": "Browse SwiftUI previews as a hierarchical, searchable Storybook-like website. Renders #Preview definitions via the Xcode MCP server.",
   "type": "module",
@@ -20,7 +20,8 @@
     "start": "node dist/cli.js",
     "test": "node --import tsx --test test/*.test.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "demo": "tsx scripts/generate-demo.ts"
+    "demo": "tsx scripts/generate-demo.ts",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "swiftui",
@@ -30,7 +31,19 @@
     "mcp",
     "snapshot"
   ],
-  "license": "MIT",
+  "author": "henteko",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/henteko/previewbook#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/henteko/previewbook.git"
+  },
+  "bugs": {
+    "url": "https://github.com/henteko/previewbook/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@types/node": "^22.10.0",
     "tsx": "^4.19.0",
