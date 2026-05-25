@@ -11,12 +11,9 @@ SwiftUI の `#Preview` を撮影し、ナビゲーション・検索・ソース
 ## 必要環境
 
 - Node.js 20 以上
-- macOS + **Xcode（MCP ブリッジ `xcrun mcpbridge` を同梱するバージョン）**
+- macOS + **Xcode 26.5以上**
 - 対象プロジェクトを Xcode で開いておくこと
 
-`mcpbridge` を含まない古い Xcode では起動時に `MCP bridge exited unexpectedly (code=72)` /
-`xcrun: error: unable to find utility "mcpbridge"` になります。Xcode を更新すると解消します
-（動作確認は Xcode 26.0.1）。フル Xcode が選択されていることも確認してください。
 
 ```bash
 xcode-select -p            # /Applications/Xcode.app/... を指していること
@@ -52,16 +49,6 @@ previewbook build -o ./out   # 撮影して静的ファイル一式を ./out に
 | `--no-open` | ブラウザを自動で開かない（サーブ時） |
 | `--timeout <sec>` | `RenderPreview` の 1 枚あたりタイムアウト |
 | `-v, --verbose` | 詳細ログ（MCP の生のやり取りも表示） |
-
-### UI をすぐ見る（デモ）
-
-Xcode / MCP なしで UI を確認できます（サンプルデータとダミー PNG から静的サイトを生成）。
-
-```bash
-git clone https://github.com/henteko/previewbook.git
-cd previewbook && npm install
-npm run demo && open examples/demo-site/index.html
-```
 
 ## 注意事項
 
@@ -122,8 +109,6 @@ UI の見た目は [`src/site/assets/styles.css`](src/site/assets/styles.css)、
   ]
 }
 ```
-
-設計の詳細は [`docs/previewbook-design.md`](docs/previewbook-design.md) を参照してください。
 
 ## ライセンス
 
