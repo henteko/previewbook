@@ -1,4 +1,9 @@
-# previewbook
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/logo-dark.svg">
+    <img src="docs/logo.svg" alt="previewbook" width="360">
+  </picture>
+</p>
 
 [![npm](https://img.shields.io/npm/v/@henteko/previewbook)](https://www.npmjs.com/package/@henteko/previewbook)
 [![node](https://img.shields.io/node/v/@henteko/previewbook)](https://nodejs.org)
